@@ -9,7 +9,7 @@ MongoClient.connect(url,
     if (err) throw err;
     console.log("Database connected!");
     var dbo = db.db("pokeDB");
-    var results = filtroThanos(dbo,1,"iron",1)
+    var results = filtroThanos(dbo,1,"fire",-1)
     results.forEach(row => 
         {
         console.log(row);
