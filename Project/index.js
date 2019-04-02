@@ -3,13 +3,12 @@ var MongoClient = require('mongodb').MongoClient;
 
 var url = "mongodb://localhost:27017/pokeDB";
 
-MongoClient.connect(url,
-    function(err, db) 
+MongoClient.connect(url,function(err, db) 
     {
     if (err) throw err;
     console.log("Database connected!");
     var dbo = db.db("pokeDB");
-    var results = filtroThanos(dbo,1,"iron",1)
+    var results = filtroThanos(dbo,1,"electric",1)
     results.forEach(row => 
         {
         console.log(row);
@@ -38,8 +37,7 @@ function filtroThanos(dbo,gen,type,leg)
                 {
                     filter1.$and.push({is_legendary:1});
                 }
-
-                var results = dbo.collection("pokeCollection").find(filter1);
+            var results = dbo.collection("pokeCollection").find(filter1);
         }
 
     return results;
