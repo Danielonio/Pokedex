@@ -14,6 +14,7 @@ MongoClient.connect(url,function(err, db)
         console.log(row);
         });
     }
+   
 );
 
 function filtroThanos(dbo,gen,type,leg)
@@ -42,3 +43,15 @@ function filtroThanos(dbo,gen,type,leg)
 
     return results;
 }
+/*
+function getFiles(){
+    const testFolder = '../Recursos Clase/pokemon';
+    const fs = require('fs');
+  
+    fs.readdir(testFolder, (err, files) => {
+      files.forEach(file => {
+        console.log(file);
+      });
+    });
+}*/
+

@@ -18,5 +18,10 @@
   "homepage": "https://github.com/Danielonio/Pokedex#readme",
   "dependencies": {
     "mongodb": "^3.2.2"
-  }
+  },
+  "devDependencies": {
+    "gridfs-stream": "^1.1.1",
+    "mongoose": "^4.13.18"
+  },
+  "keywords": []
 }
