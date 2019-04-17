@@ -84,12 +84,10 @@ function getImage(nombreImagen)
                             buffer +=btoa( chunk);
                         });
                 
-                        // dump contents to console when complete
                         readStream.on("end", function () {
-                            //var img = document.createElement('img');
-                        //  img.src = 'data:image/jpeg;base64,' + btoa(buffer);
-                        // document.body.appendChild(img);
-                            console.log(buffer);
+ 
+                          console.log(buffer);
+                          return buffer; 
                         });
 
             } else {
@@ -100,9 +98,9 @@ function getImage(nombreImagen)
     
         console.log('Sorry not connected');
 }
-console.log("done");
+
 }
 
 
+var imagen64=getImage("15.png")
 
-getImage("53.png");
