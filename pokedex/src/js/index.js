@@ -6,21 +6,20 @@ var pokemon = "e";
 document.getElementById('nombre').innerHTML = nombre;
 document.getElementById('detalles').innerHTML = detalles;
 
-var array = ["pokemon1", "pokemon2", "pokemon3", "otro más"], tr;
+var pokemones = ["pokemon1", "pokemon2", "pokemon3", "otro más"];
+var numeros = [1, 40, 321, 390];
+var generaciones = [1, 2, 6, 6];
 
-array.forEach((value, i) => {
+pokemones.forEach((value, i) => {
     var td1 = document.createElement('td');
     var td2 = document.createElement('td');
-    var td3 = document.createElement('td');
     var tr = document.createElement('tr');
     var th = document.createElement('th');
-    th.appendChild(document.createTextNode(i + 1));
-    td1.appendChild(document.createTextNode("valor1"));
-    td2.appendChild(document.createTextNode("valor2"));
-    td3.appendChild(document.createTextNode("valor3"));
+    th.appendChild(document.createTextNode(numeros[i]));
+    td1.appendChild(document.createTextNode(value));
+    td2.appendChild(document.createTextNode(generaciones[i]));
     tr.appendChild(th);
     tr.appendChild(td1);
     tr.appendChild(td2);
-    tr.appendChild(td3);
     document.getElementById('pokemonTable').appendChild(tr);
 });
