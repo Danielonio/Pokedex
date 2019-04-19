@@ -1,1 +1,32 @@
 # Empty CSS file for your own CSS
+
+body {
+  padding-top: 40px;
+}
+img {
+	max-width: 100%
+}
+
+.spacer5 {
+  height: 5px;
+}
+
+.rojoC{
+color: #F2778D
+}
+
+.rojoO{
+color: #BF5486
+}
+
+.azul{
+color: #123E59 
+}
+
+.verde{
+color: #0596A6
+}
+
+.blanco{
+color: #F2F2F0
+}

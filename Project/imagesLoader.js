@@ -12,8 +12,6 @@ if (connection !== "undefined") {
 
     var fs = require("fs");
 
-    var filesrc = path.join(__dirname, "../Recursos Clase/pokemon/1.png");
-
     grid.mongo = mongooseDrv.mongo;
 
     connection.once("open", () => {
@@ -52,8 +50,7 @@ if (connection !== "undefined") {
 }
 console.log("done");
 
-} 
-
+}
 
 //Esta funcion devuelve la imagen en base64 que se llame como el parámetro que recive (incluyendo extensión)
 function getImage(nombreImagen)   
@@ -66,8 +63,6 @@ function getImage(nombreImagen)
         console.log(connection.readyState.toString());
 
         var grid = require("gridfs-stream");
-
-        var fs = require("fs");
 
         var btoa = require('btoa');
         
@@ -84,10 +79,8 @@ function getImage(nombreImagen)
                         });
                 
                         readStream.on("end", function () {
-                            
-                          console.log(buffer);
-                          return buffer;
-                          
+                            console.log(buffer);
+                            return buffer;
                         });
             } else {
                 console.log("No hay grid");
@@ -97,9 +90,6 @@ function getImage(nombreImagen)
     } else {  
         console.log('No conectado');
     }
-    
 }
 
-
-var imagen64=getImage("27.png")
-
+getImage("427.png");

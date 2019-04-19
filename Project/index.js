@@ -8,13 +8,12 @@ MongoClient.connect(url,function(err, db)
     if (err) throw err;
     console.log("Database connected!");
     var dbo = db.db("pokeDB");
-    var results = filtroThanos(dbo,1,"electric",1)
+    var results = filtroThanos(dbo,1,"electric",1);
     results.forEach(row => 
         {
         console.log(row);
         });
     }
-   
 );
 
 function filtroThanos(dbo,gen,type,leg)
@@ -40,18 +39,5 @@ function filtroThanos(dbo,gen,type,leg)
                 }
             var results = dbo.collection("pokeCollection").find(filter1);
         }
-
     return results;
 }
-/*
-function getFiles(){
-    const testFolder = '../Recursos Clase/pokemon';
-    const fs = require('fs');
-  
-    fs.readdir(testFolder, (err, files) => {
-      files.forEach(file => {
-        console.log(file);
-      });
-    });
-}*/
-
