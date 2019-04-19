@@ -3,30 +3,66 @@
 body {
   padding-top: 40px;
 }
+
 img {
 	max-width: 100%
 }
+
 
 .spacer5 {
   height: 5px;
 }
 
 .rojoC{
-color: #F2778D
+color: #E96F6C
 }
 
 .rojoO{
-color: #BF5486
+color: #8C3535
 }
 
 .azul{
-color: #123E59 
+color: #9CB0D9
 }
 
 .verde{
-color: #0596A6
+color: #A9D8A4
 }
 
 .blanco{
 color: #F2F2F0
+}
+
+.negro{
+color: #2E2E30
+}
+
+.my-custom-scrollbar {
+position: relative;
+height: 500px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+
+.table{
+ background:#96A7D5  !important;
+  color: #F2F2F0 !important;
+}
+.carousel-inner{
+  margin-top: 100px;
+}
+
+.btn-primary
+{
+background-color: #A9D8A4 !important;
+border-color: #A9D8A4;
+color: #2E2E30;
+}
+
+.info{
+	background-color: #A9D8A4 !important;
+	max-width: 500px;
+	 margin: auto;
 }
