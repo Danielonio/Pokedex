@@ -17,7 +17,7 @@ if (connection !== "undefined") {
     grid.mongo = mongooseDrv.mongo;
 
     connection.once("open", () => {
-        console.log("Connection Open");
+        console.log("Conexión abierta");
         var gridfs = grid(connection.db);
         if (gridfs) {
 
@@ -58,13 +58,12 @@ console.log("done");
 //Esta funcion devuelve la imagen en base64 que se llame como el parámetro que recive (incluyendo extensión)
 function getImage(nombreImagen)   
 {   
+    buffer = "";
     var mongooseDrv = require("mongoose");
     mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
     var connection = mongooseDrv.connection;
     if (connection !== "undefined") {
         console.log(connection.readyState.toString());
-    
-        var path = require("path");
 
         var grid = require("gridfs-stream");
 
@@ -74,9 +73,9 @@ function getImage(nombreImagen)
         
         grid.mongo = mongooseDrv.mongo;
 
-        buffer = "";
+       
         connection.once("open", () => {
-            console.log("Connection OpenNNNNNN");
+            console.log("Conexion abierta");
             var gridfs = grid(connection.db);
             if (gridfs) {        
                         readStream = gridfs.createReadStream({ filename: nombreImagen });
@@ -85,22 +84,22 @@ function getImage(nombreImagen)
                         });
                 
                         readStream.on("end", function () {
- 
+                            
                           console.log(buffer);
-                          return buffer; 
+                          return buffer;
+                          
                         });
-
             } else {
-                console.log("Sorry No Grid FS Object");
+                console.log("No hay grid");
+                
             }
         });
-    } else {
+    } else {  
+        console.log('No conectado');
+    }
     
-        console.log('Sorry not connected');
-}
-
 }
 
 
-var imagen64=getImage("15.png")
+var imagen64=getImage("27.png")
 
