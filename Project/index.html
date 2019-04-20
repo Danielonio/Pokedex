@@ -9,24 +9,25 @@
 
     <meta name="description" content="Source code generated using layoutit.com">
     <meta name="author" content="LayoutIt!">
-
+	
+	<link href="https://fonts.googleapis.com/css?family=Acme" rel="stylesheet"> 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
   </head>
-  <body style="background-color:#E96F6C;">
+  <body style="background-color:#E96F6C; background-image: linear-gradient(#DA9797 0%, #DA5856 80%, #AF4A55 100%)">
 
 
     <div class="container-fluid">
 			<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-12 titulo">
 		<div class="spacer5"></div>
-			<h3 class="rojoO">
+			<h1 class="rojoO text-center">
 				Pokédex
-			</h3>
+			</h1>
 		</div>
 		</div>
-			<div class="row">
+			<div class="row margen">
 			
 				<div class="col-1">
 				<div class="spacer5"></div>
@@ -46,10 +47,10 @@
 					<div class="dropdown">
 						 
 						<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-							Action
+							Tipo
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							 <a class="dropdown-item disabled" href="#">Action</a> <a class="dropdown-item" href="#">Another action</a> <a class="dropdown-item" href="#">Something else here</a>
+							 <a class="dropdown-item" href="#">Acero</a> <a class="dropdown-item" href="#">Agua</a><a class="dropdown-item" href="#">Bicho</a><a class="dropdown-item" href="#">Dragón</a><a class="dropdown-item" href="#">Eléctrico</a><a class="dropdown-item" href="#">Fantasma</a><a class="dropdown-item" href="#">Fuego</a><a class="dropdown-item" href="#">Hada</a><a class="dropdown-item" href="#">Hielo</a><a class="dropdown-item" href="#">Lucha</a><a class="dropdown-item" href="#">Normal</a><a class="dropdown-item" href="#">Planta</a><a class="dropdown-item" href="#">Psíquico</a><a class="dropdown-item" href="#">Roca</a><a class="dropdown-item" href="#">Siniestro</a><a class="dropdown-item" href="#">Tierra</a><a class="dropdown-item" href="#">Veneno</a><a class="dropdown-item" href="#">Volador</a>
 						</div>
 					</div>
 				</div>
@@ -73,7 +74,7 @@
 				</div>
 				<div class="col-md-2">
 					 <div class="spacer5"></div>
-					<button type="button" class="btn btn-info btn-block">
+					<button type="button" class="btn btn-success btn-block">
 						¡Crea tu Pokémon!
 					</button>
 				</div>
@@ -84,7 +85,7 @@
 			<div class ="table-wrapper-scroll-y my-custom-scrollbar">
 					<p>
 						<table class="table table-hover " id="pokemonTable">
-							<thead class="negro">
+							<thead class="azulO">
 							<tr>
 							<th scope="col">#</th>
 							<th scope="col">Pokémon</th>
@@ -147,7 +148,7 @@
 					</div>
 				</div>
 
-				<div class="col-md-4  info ">
+				<div class="col-md-4  card negro ">
 				<div class="spacer5"></div>
 					<h3 class="text-center " id="nombre">
 						Pues aquí va el nombre
@@ -164,13 +165,13 @@
 			<div class="row justify-content-end">
 				<div class="col-md-4 text-left">
 					 <div class="spacer5"></div>
-					<button type="button" class="btn btn-info btn-block">
+					<button type="button" class="btn btn-dark btn-block">
 						Anterior
 					</button>
 				</div>
 				<div class="col-md-4 text-left">
 					 <div class="spacer5"></div>
-					<button type="button" class="btn btn-info btn-block btn-md">
+					<button type="button" class="btn btn-dark btn-block btn-md">
 						Siguiente
 					</button>
 				</div>
