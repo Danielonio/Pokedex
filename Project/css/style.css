@@ -8,21 +8,28 @@ img {
 	max-width: 100%
 }
 
+html, body {
+    height:100%;
+}
 
 .spacer5 {
   height: 5px;
 }
 
 .rojoC{
-color: #E96F6C
+color: #D8665F
 }
 
 .rojoO{
-color: #8C3535
+color: #AF4A55
 }
 
 .azul{
-color: #9CB0D9
+color: #88CEF3
+}
+
+.azulO{
+	color:#4071B6
 }
 
 .verde{
@@ -30,11 +37,11 @@ color: #A9D8A4
 }
 
 .blanco{
-color: #F2F2F0
+color: #FCF9FA
 }
 
 .negro{
-color: #2E2E30
+color: #48403C;
 }
 
 .my-custom-scrollbar {
@@ -47,8 +54,9 @@ display: block;
 }
 
 .table{
- background:#96A7D5  !important;
-  color: #F2F2F0 !important;
+ background:#88CEF3  !important;
+  color: #48403C !important;
+  
 }
 .carousel-inner{
   margin-top: 100px;
@@ -56,13 +64,39 @@ display: block;
 
 .btn-primary
 {
-background-color: #A9D8A4 !important;
-border-color: #A9D8A4;
-color: #2E2E30;
+background-color: #4071B6 !important;
+border-color: #48403C;
+color: #FCF9FA;
 }
 
-.info{
-	background-color: #A9D8A4 !important;
+.btn-success{
+background-color: #7FC089 !important;
+border-color: #48403C;
+color: white;
+}
+
+
+.btn-dark{
+background-color: #48403C !important;
+border-color: #48403C;
+color: white;
+}
+
+.card{
+	background-color: #FCF9FA !important;
 	max-width: 500px;
+	border-color: #48403C;
 	 margin: auto;
+}
+
+.margen{
+	margin-bottom: 10px;
+}
+
+.titulo{
+	margin-bottom: 10px;
+	margin-top: 10px;
+	font-family: 'Acme', sans-serif;
+	font-size: 48px;
+
 }
