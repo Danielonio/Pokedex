@@ -1,0 +1,21 @@
+<html>
+
+<head>
+
+</head>
+<body>   
+    <form>
+        <input type="text" name="item" placeholder="hola" required/>
+        <button type="submit">Probando</button>
+    </form>
+    <p>hola</p>
+    <ul>
+        <% for (var i = 0; i < controlador.length; i++ ) { %>
+            <li><%= controlador[i].item %> </li>
+       <% } %>
+    </ul>
+<script src="js/jquery.min.js"></script>
+
+</body>
+
+</html>

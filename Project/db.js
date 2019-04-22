@@ -4,6 +4,8 @@ var bodyparser = require('body-parser')
 var MongoClient = require('mongodb').MongoClient;
 var app = express()
 var parser = bodyparser.urlencoded({extended:false});
+app.set('view engine','ejs');
+var paella = [{item:'hola'},{item:'buenas'}];
 
 
 
@@ -60,8 +62,11 @@ function filtroThanos(dbo,gen,type,leg,order)
 }
 app.listen(3000);
 app.use(express.static("public"));
+
+
 app.get('/poke',function(req, res){
-    res.sendFile('/public/index.html', {root: __dirname});
+    res.render('controller',{controlador:paella});
+    //res.sendFile('public/index.html', {root: __dirname});
 });
 
 app.post('/poke',parser,function(req, res){
@@ -79,7 +84,7 @@ app.post('/poke',parser,function(req, res){
         });
     
 
-    res.sendFile('/public/index.html', {root: __dirname});
+    res.sendFile('public/index.html', {root: __dirname});
     
 });
 

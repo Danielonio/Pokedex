@@ -1,4 +1,4 @@
-var nombre = "Nombre de Pokemon";
+var nombre = "Nombre"
 var detalles = "Descripción detallada de las habilidades del Pokemon y toda la pesca"
 var nPokemon = 5;
 var pokemon = "e";
