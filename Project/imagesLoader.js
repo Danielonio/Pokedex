@@ -92,4 +92,5 @@ function getImage(nombreImagen)
     }
 }
 
-getImage("427.png");
+getImage("300.png");
+//guardaImg();
