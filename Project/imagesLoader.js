@@ -60,15 +60,13 @@ function getImage(nombreImagen)
     mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
     var connection = mongooseDrv.connection;
     if (connection !== "undefined") {
-        console.log(connection.readyState.toString());
-
+       // console.log(connection.readyState.toString());
         var grid = require("gridfs-stream");
 
         var btoa = require('btoa');
         
         grid.mongo = mongooseDrv.mongo;
 
-       
         connection.once("open", () => {
             console.log("Conexion abierta");
             var gridfs = grid(connection.db);
@@ -79,8 +77,8 @@ function getImage(nombreImagen)
                         });
                 
                         readStream.on("end", function () {
-                            console.log(buffer);
-                            return buffer;
+                            //console.log(buffer);
+                                                 
                         });
             } else {
                 console.log("No hay grid");
@@ -92,4 +90,32 @@ function getImage(nombreImagen)
     }
 }
 
-getImage("427.png");
+function busquedaNombre(numeroPokemon,getI)
+{
+    var imagenes=[];
+    var fs = require("fs");
+    const testFolder = '../Recursos Clase/pokemon';
+    fs.readdir(testFolder, (err, files) => {
+        files.forEach(file => {
+            if (file.startsWith(numeroPokemon+".") || file.startsWith(numeroPokemon+"-") )
+            {
+                console.log(file)
+                let a=new Promise(function(resolve,reject){
+                    resolve(getI(file));
+                });               
+                a.then(function(){console.log("ya");  imagenes[imagenes.length]=a; } );
+                //console.log(imagenes);
+            }
+            
+        });
+        
+        
+    });
+    return imagenes;
+}
+//getImage("427.png");
+i=busquedaNombre(15,getImage);
+console.log(i);
+setTimeout(function () {
+    console.log(i);
+}, 6000);
