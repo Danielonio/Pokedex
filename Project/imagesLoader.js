@@ -90,6 +90,7 @@ function getImage(nombreImagen)
     }
 }
 
+
 function busquedaNombre(numeroPokemon,getI)
 {
     var imagenes=[];
@@ -119,3 +120,4 @@ console.log(i);
 setTimeout(function () {
     console.log(i);
 }, 6000);
+

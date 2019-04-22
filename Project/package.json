@@ -17,12 +17,14 @@
   },
   "homepage": "https://github.com/Danielonio/Pokedex#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
     "install": "^0.12.2",
     "js-base64": "^2.5.1",
     "mongodb": "^3.2.2"
   },
   "devDependencies": {
-    "base-64":"^2.5.1",
+    "base-64": "^2.5.1",
     "btoa": "^1.2.1",
     "gridfs-stream": "^1.1.1",
     "mongoose": "^4.13.18",
