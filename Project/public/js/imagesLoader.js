@@ -19,13 +19,13 @@ if (connection !== "undefined") {
         var gridfs = grid(connection.db);
         if (gridfs) {
 
-            const testFolder = '../Recursos Clase/pokemon';
+            const testFolder = '../pokemon';
           
             fs.readdir(testFolder, (err, files) => {
              c=0;
               files.forEach(file => {
                c++;
-                var filesrc = path.join(__dirname, "../Recursos Clase/pokemon/"+file);
+                var filesrc = path.join(__dirname, "../pokemon/"+file);
                 var streamwrite = gridfs.createWriteStream({
                    //nombre al almacenar en la bd (el mismo que el archivo)
                     filename: file
@@ -95,7 +95,7 @@ function busquedaNombre(numeroPokemon,getI)
 {
     var imagenes=[];
     var fs = require("fs");
-    const testFolder = '../Recursos Clase/pokemon';
+    const testFolder = '../pokemon';
     fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
             if (file.startsWith(numeroPokemon+".") || file.startsWith(numeroPokemon+"-") )
