@@ -5,13 +5,17 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express()
 var parser = bodyparser.urlencoded({ extended: false });
 app.set('view engine', 'ejs');
-var stats = [{ item: 'hola', name: 'Nombre', pokedex_number: '#', generation: '#', abilities: 'a', height_m: 'a', weight_kg: 'a', japanese_name: '-', type1: 'a', type2: 'a' }];
+var stats = [{ item: 'hola', name: 'Nombre', pokedex_number: '#', generation: '#', abilities: 'a', height_m: 'a', weight_kg: 'a', japanese_name: '-', type1: 'a', type2: 'a'}];
 var generacion = -1
 var tipo = -1
 var legendario = -1
 var orden = 1
 var dbo
 var url = "mongodb://localhost:27017/pokeDB";
+
+arrayResultado = [];
+image = '';
+var rowId = 0;
 
 MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -44,18 +48,17 @@ function filtroThanos(dbo, gen, type, leg, order) {
 app.listen(3000);
 app.use(express.static("public"));
 app.get('/poke', function (req, res) {
-    res.render('index', { currentImage: stats[0], datos: stats });
+    res.render('index', { currentImage: image, datos: stats, rowId: rowId});
     //res.sendFile('public/index.html', {root: __dirname});
 });
 
 app.post('/poke', parser, function (req, res) {
-
     this.generacion = parseInt(req.body.gen, 10);
     this.tipo = req.body.tipo;
     this.legendario = parseInt(req.body.legendario, 10);
     this.orden = parseInt(req.body.orden, 10);
+    arrayResultado = [];
 
-    var arrayResultado = [];
     var results = filtroThanos(dbo, this.generacion, this.tipo, this.legendario, this.orden);
     results.forEach(row => {
         arrayResultado.push(row);
@@ -63,7 +66,7 @@ app.post('/poke', parser, function (req, res) {
     }, function () {
         //console.log('Este es el resulado',arrayResultado);
         //res.json(arrayResultado);
-        nombreImagen = arrayResultado[0].pokedex_number + ".png";
+        nombreImagen = arrayResultado[rowId].pokedex_number + ".png";
         buffer = "";
         var mongooseDrv = require("mongoose");
         mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
@@ -84,9 +87,9 @@ app.post('/poke', parser, function (req, res) {
                         buffer += btoa(chunk);
                     });
                     readStream.on("end", function () {
-                        str = "data:image/png;base64," + buffer;
+                        image = "data:image/png;base64," + buffer;
                         //res.render('index',{currentImage:str,datos:stats});
-                        res.render('index', { currentImage: str, datos: arrayResultado });
+                        res.render('index', { currentImage: image, datos: arrayResultado, rowId: rowId });
                     });
                 } else {
                     console.log("No hay grid");
@@ -96,4 +99,44 @@ app.post('/poke', parser, function (req, res) {
             console.log('No conectado');
         }
     });
+});
+
+app.post('/row', parser, function (req, res) {
+    this.rowId = parseInt(req.body.rowId,10);
+    console.log(this.rowId);
+
+    nombreImagen = arrayResultado[this.rowId-1].pokedex_number + ".png";
+        buffer = "";
+        var mongooseDrv = require("mongoose");
+        mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
+        var connection = mongooseDrv.connection;
+        if (connection !== "undefined") {
+
+            var grid = require("gridfs-stream");
+
+            var btoa = require('btoa');
+
+            grid.mongo = mongooseDrv.mongo;
+            connection.once("open", () => {
+                console.log("Conexion abierta");
+                var gridfs = grid(connection.db);
+                if (gridfs) {
+                    readStream = gridfs.createReadStream({ filename: nombreImagen });
+                    readStream.on("data", function (chunk) {
+                        buffer += btoa(chunk);
+                    });
+                    readStream.on("end", function () {
+                        image = "data:image/png;base64," + buffer;
+                        //res.render('index',{currentImage:str,datos:stats});
+                        res.render('index', { currentImage: image, datos: arrayResultado, rowId: rowId });
+                    });
+                } else {
+                    console.log("No hay grid");
+                }
+            });
+        } else {
+            console.log('No conectado');
+        }
+
+    res.render('index', { currentImage: image, datos: arrayResultado, rowId: this.rowId-1 });
 });

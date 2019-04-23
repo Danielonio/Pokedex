@@ -104,13 +104,6 @@
 				</div>
 				<input type="submit" value="submit">
 		</form>
-
-		<div class="col-md-2">
-			<div class="spacer5"></div>
-			<button type="button" class="btn btn-success btn-block">
-				¡Crea tu Pokémon!
-			</button>
-		</div>
 	</div>
 
 	<div class="row ">
@@ -118,28 +111,27 @@
 			<div class="spacer5"></div>
 			<div class="table-wrapper-scroll-y my-custom-scrollbar">
 				<p>
-					<table class="table table-hover " id="pokemonTable">
-						<thead class="azulO">
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Pokémon</th>
-								<th scope="col">Generación</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<% for (var i = 0; i < datos.length; i++ ) { %>
-							<tr onclick="myFunction(this)">
-								<td><%= datos[i].pokedex_number %></td>
-								<td><%= datos[i].name %> </td>
-								<td><%= datos[i].generation %></td>
-							</tr>
-							<% } %>
-
-
-						</tbody>
-
-					</table>
+					<form name="rowForm" role="form" action='/row' method="post">
+						<table class="table table-hover " id="pokemonTable">
+							<thead class="azulO">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Pokémon</th>
+									<th scope="col">Generación</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% for (var i = 0; i < datos.length; i++ ) { %>
+									<tr id="here" onclick="submitJS(this)">
+									
+									<td><%= datos[i].pokedex_number %></td>
+									<td><%= datos[i].name %> </td>
+									<td><%= datos[i].generation %></td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+					</form>
 				</p>
 			</div>
 		</div>
@@ -204,52 +196,39 @@
 		<div class="col-md-4  card negro ">
 			<div class="spacer5"></div>
 			<h3 class="text-center " id="nombre">
-				<% var j%>
-				<%= datos[0].name %> <br>
-				(<%= datos[0].japanese_name %>)
+				<%= datos[rowId].name %> <br>
+				(<%= datos[rowId].japanese_name %>)
 			</h3>
 			<p id="detalles">
-				Habilidades: <%= datos[0].abilities %> <br>
-				Altura: <%= datos[0].height_m %> <br>
-				Peso: <%= datos[0].weight_kg %> <br>
-				Tipos: <%= datos[0].type1 %> / <%= datos[0].type2 %>
+				Habilidades: <%= datos[rowId].abilities %> <br>
+				Altura: <%= datos[rowId].height_m %> <br>
+				Peso: <%= datos[rowId].weight_kg %> <br>
+				Tipos: <%= datos[rowId].type1 %> / <%= datos[rowId].type2 %>
 
 			</p>
-			<!-- <p>
-						<a class="btn" href="#">View details »</a>
-					</p> -->
 		</div>
-
-	</div>
-	<div class="row justify-content-end">
-		<div class="col-md-4 text-left">
-			<div class="spacer5"></div>
-			<button type="button" class="btn btn-dark btn-block">
-				Anterior
-			</button>
-		</div>
-		<div class="col-md-4 text-left">
-			<div class="spacer5"></div>
-			<button type="button" class="btn btn-dark btn-block btn-md">
-				Siguiente
-			</button>
-		</div>
-	</div>
 	</div>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
-	<script src="js/scripts.js"></script>
 
 	<script>
+		function submitJS(x) {
+			//alert("Row index is: " + x.rowIndex);
+			//location.reload();
 
-		function myFunction(x) {
+			var input = document.createElement("input");
 
-			alert("Row index is: " + x.rowIndex);
-			var numFila = x.rowIndex;
-			location.reload();
+			input.setAttribute("type", "hidden");
 
+			input.setAttribute("name", "rowId");
+
+			input.setAttribute("value", x.rowIndex);
+
+			document.getElementById("here").appendChild(input);
+
+			document.rowForm.submit();
 		}
 	</script>
 
