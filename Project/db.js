@@ -65,8 +65,8 @@ app.use(express.static("public"));
 
 
 app.get('/poke',function(req, res){
-    //res.render('controller',{controlador:paella});
-    res.sendFile('public/index.html', {root: __dirname});
+    res.render('controller',{index:paella});
+    //res.sendFile('public/index.html', {root: __dirname});
 });
 
 app.post('/poke',parser,function(req, res){
