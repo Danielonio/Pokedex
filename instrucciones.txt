@@ -1,0 +1,17 @@
+Instrucciones para la ejecución de la práctica Pokédex:
+
+Preparación bases de datos:
+-Para cargar la base de datos con la información de los pokemon ejecutar el siguiente comando en el cmd:
+
+mongoimport -d pokeDB -c pokeCollection --type csv --file "C:\ruta_al_excel/pokemon.csv"  --headerline
+
+
+-Para cargar la base de datos con las imágenes de lps `pokemon, ejecutar la funcion guardaImg() del  script Project/imagesLoader.js, escribiendo guardaImg() al final del script y ejecutando el comando:
+
+node imagesLoader.js
+
+
+Por último, para la ejecución del proyecto de debe hacer  "node db.js" y en el explorador acceder a la dirección http://127.0.0.1:3000/poke
+
+
+
