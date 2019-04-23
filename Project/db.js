@@ -100,10 +100,6 @@ app.post('/getImage',function(req, res){
 
         var btoa = require('btoa');
 
-        const jsdom = require("jsdom");
-        const { JSDOM } = jsdom;
-        const dom = new JSDOM('public/index.html');
-        console.log(dom.window.document);
         grid.mongo = mongooseDrv.mongo;
         console.log("EIII");   
         connection.once("open", () => {
@@ -118,7 +114,7 @@ app.post('/getImage',function(req, res){
 
                            str="data:image/png;base64,"+buffer;
 
-                           
+                           console.log(str);
                            //document.getElementById('foto').setAttribute('src',str)
                         });
             } else {
