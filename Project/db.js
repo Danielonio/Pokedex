@@ -15,7 +15,7 @@ var url = "mongodb://localhost:27017/pokeDB";
 
 arrayResultado = [];
 image = '';
-var rowId = 0;
+rowId = 0;
 
 MongoClient.connect(url, function (err, db) {
     if (err) throw err;
@@ -47,9 +47,8 @@ function filtroThanos(dbo, gen, type, leg, order) {
 }
 app.listen(3000);
 app.use(express.static("public"));
-app.get('/poke', function (req, res) {
+app.get('/', function (req, res) {
     res.render('index', { currentImage: image, datos: stats, rowId: rowId});
-    //res.sendFile('public/index.html', {root: __dirname});
 });
 
 app.post('/poke', parser, function (req, res) {
@@ -62,11 +61,9 @@ app.post('/poke', parser, function (req, res) {
     var results = filtroThanos(dbo, this.generacion, this.tipo, this.legendario, this.orden);
     results.forEach(row => {
         arrayResultado.push(row);
-        //console.log(arrayResultado);
     }, function () {
-        //console.log('Este es el resulado',arrayResultado);
-        //res.json(arrayResultado);
-        nombreImagen = arrayResultado[rowId].pokedex_number + ".png";
+        if(arrayResultado[0].pokedex_number > 721) nombreImagen = "1.png";
+        else nombreImagen = arrayResultado[0].pokedex_number + ".png";
         buffer = "";
         var mongooseDrv = require("mongoose");
         mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
@@ -88,7 +85,6 @@ app.post('/poke', parser, function (req, res) {
                     });
                     readStream.on("end", function () {
                         image = "data:image/png;base64," + buffer;
-                        //res.render('index',{currentImage:str,datos:stats});
                         res.render('index', { currentImage: image, datos: arrayResultado, rowId: rowId });
                     });
                 } else {
@@ -102,10 +98,11 @@ app.post('/poke', parser, function (req, res) {
 });
 
 app.post('/row', parser, function (req, res) {
-    this.rowId = parseInt(req.body.rowId,10);
-    console.log(this.rowId);
+    rowId = parseInt(req.body.rowId,10);
+    console.log(rowId);
 
-    nombreImagen = arrayResultado[this.rowId-1].pokedex_number + ".png";
+    if(arrayResultado[rowId-1].pokedex_number > 721) nombreImagen = "1.png";
+    else nombreImagen = arrayResultado[rowId-1].pokedex_number + ".png";
         buffer = "";
         var mongooseDrv = require("mongoose");
         mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
@@ -127,8 +124,7 @@ app.post('/row', parser, function (req, res) {
                     });
                     readStream.on("end", function () {
                         image = "data:image/png;base64," + buffer;
-                        //res.render('index',{currentImage:str,datos:stats});
-                        res.render('index', { currentImage: image, datos: arrayResultado, rowId: rowId });
+                        res.render('index', { currentImage: image, datos: arrayResultado, rowId: rowId-1 });
                     });
                 } else {
                     console.log("No hay grid");
@@ -137,6 +133,4 @@ app.post('/row', parser, function (req, res) {
         } else {
             console.log('No conectado');
         }
-
-    res.render('index', { currentImage: image, datos: arrayResultado, rowId: this.rowId-1 });
 });
