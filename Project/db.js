@@ -6,16 +6,11 @@ var app = express()
 var parser = bodyparser.urlencoded({extended:false});
 app.set('view engine','ejs');
 var paella = [{item:'hola'},{item:'buenas'}];
-
-
-
 var generacion = -1
 var tipo = -1
 var legendario = -1
 var orden = 1
 var dbo
-
-
 var url = "mongodb://localhost:27017/pokeDB";
 
 MongoClient.connect(url,function(err, db) 
@@ -23,16 +18,11 @@ MongoClient.connect(url,function(err, db)
     if (err) throw err;
     console.log("Database connected!");
     dbo = db.db("pokeDB");
-    
-
-   
     }
 );
 
 function filtroThanos(dbo,gen,type,leg,order)
-{ 
-    
-
+{     
     if(gen==-1 && type==-1 && leg ==-1) 
         {
             var results = dbo.collection("pokeCollection").find().sort({'pokedex_number':order});
@@ -55,17 +45,13 @@ function filtroThanos(dbo,gen,type,leg,order)
                     filter1.$and.push({is_legendary:1});
                 }
             var results = dbo.collection("pokeCollection").find(filter1).sort({'pokedex_number':order});
-
         }
-
     return results;
 }
 app.listen(3000);
 app.use(express.static("public"));
-
-
 app.get('/poke',function(req, res){
-    res.render('controller',{index:paella});
+    res.render('index',{controlador:paella});
     //res.sendFile('public/index.html', {root: __dirname});
 });
 
@@ -89,7 +75,7 @@ app.post('/poke',parser,function(req, res){
 });
 
 app.post('/getImage',function(req, res){
-    nombreImagen="5.png";
+    nombreImagen="156.png";
     buffer = "";
     var mongooseDrv = require("mongoose");
     mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
@@ -111,11 +97,9 @@ app.post('/getImage',function(req, res){
                             buffer +=btoa(chunk);
                         });               
                         readStream.on("end", function () {
-
                            str="data:image/png;base64,"+buffer;
-
-                           console.log(str);
-                           //document.getElementById('foto').setAttribute('src',str)
+                           res.render('index',{currentImage:str});
+                           console.log(str);                        
                         });
             } else {
                 console.log("No hay grid");              
@@ -125,8 +109,3 @@ app.post('/getImage',function(req, res){
         console.log('No conectado');
     }
 });
-
-
-
-
-
