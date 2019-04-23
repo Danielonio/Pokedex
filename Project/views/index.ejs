@@ -132,6 +132,19 @@
 									<th scope="col">Generación</th>
 								</tr>
 							</thead>
+							<tbody>
+								
+								<% for (var i = 0; i < datos.length; i++ ) { %>
+									<tr>
+									<td><%= datos[i].pokedex_number %></td>
+									<td><%= datos[i].name %> </td>
+									<td><%= datos[i].generation %></td>
+									</tr>
+							   <% } %>
+								
+
+							</tbody>
+
 						</table>
 					</p>
 				</div>
@@ -194,7 +207,7 @@
 			<div class="col-md-4  card negro ">
 				<div class="spacer5"></div>
 				<h3 class="text-center " id="nombre">
-					Pues aquí va el nombre
+					Pues aquí va el <%=datos[0]%> 
 				</h3>
 				<p id="detalles">
 					Este pokemon es un pokemon tipo dios, tiene el ataque muerte, de tipo aesinato, que mata al rival de un golpe
@@ -226,6 +239,6 @@
 	<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/scripts.js"></script>
-	<script src="js/index.js"></script>
+	
 </body>
 </html>

@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express()
 var parser = bodyparser.urlencoded({extended:false});
 app.set('view engine','ejs');
-var paella = [{item:'hola'},{item:'buenas'}];
+var paella = [{item:'hola',name:'a',pokedex_number:'a',generation:'a'},{item:'buenas'}];
 var generacion = -1
 var tipo = -1
 var legendario = -1
@@ -51,7 +51,7 @@ function filtroThanos(dbo,gen,type,leg,order)
 app.listen(3000);
 app.use(express.static("public"));
 app.get('/poke',function(req, res){
-    res.render('index',{controlador:paella});
+    res.render('index',{currentImage:paella[0],datos:paella[0]});
     //res.sendFile('public/index.html', {root: __dirname});
 });
 
@@ -62,15 +62,23 @@ app.post('/poke',parser,function(req, res){
     this.legendario = parseInt(req.body.legendario, 10);
     this.orden =parseInt(req.body.orden, 10);
    
-    
+    var arrayResultado = [];
     var results = filtroThanos(dbo,this.generacion,this.tipo,this.legendario,this.orden);
-    results.forEach(row => 
-        {
-        //console.log(row);
-        });
-    
+    results.forEach(row =>{
+       
+        
+        arrayResultado.push(row);
+        //console.log(arrayResultado);
+    },function(){
+        //console.log('Este es el resulado',arrayResultado);
+        //res.json(arrayResultado);
+        res.render('index',{currentImage:paella[0],datos:arrayResultado});
+    });
 
-    res.sendFile('public/index.html', {root: __dirname});
+    //res.sendFile('public/index.html', {root: __dirname});
+   
+    //res.render('index',{currentImage:paella});
+
     
 });
 
