@@ -49,50 +49,6 @@ if (connection !== "undefined") {
 console.log("done");
 
 }
-
-//Esta funcion devuelve la imagen en base64 que se llame como el parámetro que recive (incluyendo extensión)
-function getImage(nombreImagen,callback)   
-{   
-    buffer = "";
-    var mongooseDrv = require("mongoose");
-    mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
-    var connection = mongooseDrv.connection;
-    if (connection !== "undefined") {
-      
-        var grid = require("gridfs-stream");
-
-        var btoa = require('btoa');
-        
-        grid.mongo = mongooseDrv.mongo;
-        console.log("EIII");   
-        connection.once("open", () => {
-            console.log("Conexion abierta");
-            var gridfs = grid(connection.db);
-            if (gridfs) {        
-                        readStream = gridfs.createReadStream({ filename: nombreImagen });
-                        readStream.on("data", function (chunk) {
-                            buffer +=btoa(chunk);
-                        });               
-                        readStream.on("end", function () {
-                            Encontrado=true;
-                            
-                            console.log("Imagen recuperada");   
-                            callback && callback(buffer);
-                          //  return (buffer);   
-
-                                                                  
-                        });
-            } else {
-                console.log("No hay grid");              
-            }
-        });
-    } else {  
-        console.log('No conectado');
-    }
-
-}
-
-
 function busquedaNombre(numeroPokemon,getI)
 {
     var imagenes=[];
@@ -114,7 +70,37 @@ function busquedaNombre(numeroPokemon,getI)
 
     return imagenes;
 }
+//Esta funcion devuelve la imagen en base64 que se llame como el parámetro que recive (incluyendo extensión)
+function getImage(nombreImagen)   
+{ 
+    var mongo =require('mongodb');
+    var mongoose = require('mongoose');
+    var Grid = require('gridfs-stream');
+    var db = new mongo.Db('imagenesDB', new mongo.Server("127.0.0.1", 27017));  //if you are using mongoDb directily                                        
+    var gfs = Grid(db, mongo);         
+    var rstream = gfs.createReadStream(nombreImagen);
+    var bufs = [];
+    rstream.on('data', function (chunk) {
+        bufs.push(chunk);
+    }).on('error', function () {
+        res.send();
+    })
+    .on('end', function () { // done
 
+                var fbuf = Buffer.concat(bufs);
+
+                var File = (fbuf.toString('base64'));
+              
+                res.send(File);
+
+    });  
+    
+
+}
+
+console.log(getImage("5.png"));
+
+/*
 var globall;
           
 findImg("5.png");
@@ -128,7 +114,6 @@ function findImg(n)
 
 }
 function dpf(b){
-   globall=b;
-   
-    
+   globall=b; 
 }
+*/

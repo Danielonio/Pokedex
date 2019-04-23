@@ -65,12 +65,12 @@ app.use(express.static("public"));
 
 
 app.get('/poke',function(req, res){
-    res.render('controller',{controlador:paella});
-    //res.sendFile('public/index.html', {root: __dirname});
+    //res.render('controller',{controlador:paella});
+    res.sendFile('public/index.html', {root: __dirname});
 });
 
 app.post('/poke',parser,function(req, res){
-    
+   
     this.generacion = parseInt(req.body.gen, 10);
     this.tipo = req.body.tipo;
     this.legendario = parseInt(req.body.legendario, 10);
@@ -80,7 +80,7 @@ app.post('/poke',parser,function(req, res){
     var results = filtroThanos(dbo,this.generacion,this.tipo,this.legendario,this.orden);
     results.forEach(row => 
         {
-        console.log(row);
+        //console.log(row);
         });
     
 
@@ -88,6 +88,47 @@ app.post('/poke',parser,function(req, res){
     
 });
 
+app.post('/getImage',function(req, res){
+    nombreImagen="5.png";
+    buffer = "";
+    var mongooseDrv = require("mongoose");
+    mongooseDrv.connect('mongodb://localhost/imagenesDB', { useMongoClient: true });
+    var connection = mongooseDrv.connection;
+    if (connection !== "undefined") {
+      
+        var grid = require("gridfs-stream");
+
+        var btoa = require('btoa');
+
+        const jsdom = require("jsdom");
+        const { JSDOM } = jsdom;
+        const dom = new JSDOM('public/index.html');
+        console.log(dom.window.document);
+        grid.mongo = mongooseDrv.mongo;
+        console.log("EIII");   
+        connection.once("open", () => {
+            console.log("Conexion abierta");
+            var gridfs = grid(connection.db);
+            if (gridfs) {        
+                        readStream = gridfs.createReadStream({ filename: nombreImagen });
+                        readStream.on("data", function (chunk) {
+                            buffer +=btoa(chunk);
+                        });               
+                        readStream.on("end", function () {
+
+                           str="data:image/png;base64,"+buffer;
+
+                           
+                           //document.getElementById('foto').setAttribute('src',str)
+                        });
+            } else {
+                console.log("No hay grid");              
+            }
+        });
+    } else {  
+        console.log('No conectado');
+    }
+});
 
 
 
