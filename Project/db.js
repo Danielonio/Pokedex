@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express()
 var parser = bodyparser.urlencoded({ extended: false });
 app.set('view engine', 'ejs');
-var stats = [{item:'hola',name:'Nombre',pokedex_number:'#',generation:'#',abilities:'a',height_m:'a',weight_kg:'a',japanese_name:'-',type1:'a',type2:'a'}];
+var stats = [{ item: 'hola', name: 'Nombre', pokedex_number: '#', generation: '#', abilities: 'a', height_m: 'a', weight_kg: 'a', japanese_name: '-', type1: 'a', type2: 'a' }];
 var generacion = -1
 var tipo = -1
 var legendario = -1
