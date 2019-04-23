@@ -5,7 +5,7 @@ var MongoClient = require('mongodb').MongoClient;
 var app = express()
 var parser = bodyparser.urlencoded({extended:false});
 app.set('view engine','ejs');
-var paella = [{item:'hola',name:'a',pokedex_number:'a',generation:'a'},{item:'buenas'}];
+var stats = [{item:'hola',name:'a',pokedex_number:'a',generation:'a',abilities:'a',height_m:'a',weight_kg:'a',japanese_name:'a',type1:'a',type2:'a'}];
 var generacion = -1
 var tipo = -1
 var legendario = -1
@@ -51,7 +51,7 @@ function filtroThanos(dbo,gen,type,leg,order)
 app.listen(3000);
 app.use(express.static("public"));
 app.get('/poke',function(req, res){
-    res.render('index',{currentImage:paella[0],datos:paella[0]});
+    res.render('index',{currentImage:stats[0],datos:stats[0]});
     //res.sendFile('public/index.html', {root: __dirname});
 });
 
@@ -72,7 +72,7 @@ app.post('/poke',parser,function(req, res){
     },function(){
         //console.log('Este es el resulado',arrayResultado);
         //res.json(arrayResultado);
-        res.render('index',{currentImage:paella[0],datos:arrayResultado});
+        res.render('index',{currentImage:stats[0],datos:arrayResultado});
     });
 
     //res.sendFile('public/index.html', {root: __dirname});
